@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "CineMania",
+  "name": "Catálogo de Películas",
   "icons": [
     {
       "src": "favicon.ico",
@@ -21,5 +21,9 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "$schema": "http://json.schemastore.org/web-manifest",
+  "description": "Esta es una pagina web que contiene un catalogo de peliculas donde uno podra calificar y comentar sobre ello",
+  "scope": "/",
+  "orientation": "any"
 }
