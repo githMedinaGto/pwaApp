@@ -12,27 +12,15 @@ import React, { useState, useEffect } from 'react'
 
 
 function App() {
-  const [data, setData] = useState([])
   const [mode, setMode] = useState('online');
   const [show, setShow] = useState(true);
-
-  React.useEffect(() => {
-    // const msg=firebase.messaging();
-    // msg.requestPermission().then(()=>{
-    //   return msg.getToken();
-    // }).then((data)=>{
-    //   console.warn("token",data)
-    // })
-  })
-
-  
 
   return (
     <div className="App">
       <Router>
         <Navbar bg="primary" data-bs-theme="dark">
           <Container>
-            <Navbar.Brand href="/">CineMania</Navbar.Brand>
+            <Navbar.Brand href="#">CineMania</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link><Link to="/" >Home</Link></Nav.Link>
               <Nav.Link><Link to="/buscar">Buscar</Link></Nav.Link>
