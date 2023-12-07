@@ -14,7 +14,7 @@ export default function Home() {
 
     useEffect(() => {
         
-        let url = "http://localhost:3001/peli";
+        let url = "https://backend-movie-8ay7.onrender.com/peli";
 
         fetch(url)
             .then((response) => {
@@ -24,12 +24,24 @@ export default function Home() {
                         // Aquí es donde puedes almacenar los datos en IndexedDB en lugar de localStorage
                         // Código para almacenar en IndexedDB
                         const request = window.indexedDB.open('myDatabase', 1);
+                        const requestPel = window.indexedDB.open('myDatabasePelicula', 1);
 
                         request.onerror = function (event) {
                             console.log('Error al abrir la base de datos', event);
                         };
 
                         request.onupgradeneeded = function (event) {
+                            const db = event.target.result;
+                            const objectStore = db.createObjectStore('peliculas', { keyPath: '_id' });
+                            objectStore.transaction.oncomplete = function (event) {
+                                const peliculasObjectStore = db.transaction('peliculas', 'readwrite').objectStore('peliculas');
+                                result.forEach(function (pelicula) {
+                                    peliculasObjectStore.add(pelicula);
+                                });
+                            };
+                        };
+
+                        requestPel.onupgradeneeded = function (event) {
                             const db = event.target.result;
                             const objectStore = db.createObjectStore('peliculas', { keyPath: '_id' });
                             objectStore.transaction.oncomplete = function (event) {
@@ -59,7 +71,7 @@ export default function Home() {
             });
 
 
-            let urlUser = "http://localhost:3001/user";
+            let urlUser = "https://backend-movie-8ay7.onrender.com/user";
 
             fetch(urlUser)
                 .then((response) => {
@@ -67,6 +79,7 @@ export default function Home() {
                         .then((result) => {
                             setData(result);
                             const request = window.indexedDB.open('dbUsers', 1);
+                            const requestUser = window.indexedDB.open('myDatabasePerfil', 1);
     
                             request.onerror = function (event) {
                                 console.log('Error al abrir la base de datos', event);
@@ -82,6 +95,18 @@ export default function Home() {
                                     });
                                 };
                             };
+                            
+                            requestUser.onupgradeneeded = function (event) {
+                                const db = event.target.result;
+                                const objectStore = db.createObjectStore('usuarios', { keyPath: '_id' });
+                                objectStore.transaction.oncomplete = function (event) {
+                                    const peliculasObjectStore = db.transaction('usuarios', 'readwrite').objectStore('usuarios');
+                                    result.forEach(function (usuario) {
+                                        peliculasObjectStore.add(usuario);
+                                    });
+                                };
+                            };
+
                         });
                 })
                 .catch(err => {
@@ -103,83 +128,166 @@ export default function Home() {
                         };
                     };
                 });
-    }, []);
 
-    useEffect(() => {
-        let urlUsuarios = 'http://localhost:3001/user';
-        let urlPelicula = 'http://localhost:3001/peli';
-        let urlComentarios = 'http://localhost:3001/comentarios';
 
-        const fetchData = () => {
-            const requestUsuarios = fetch(urlUsuarios).then(response => response.json());
-            const requestPeliculas = fetch(urlPelicula).then(response => response.json());
-            const requestComentarios = fetch(urlComentarios).then(response => response.json());
 
-            Promise.all([requestUsuarios, requestPeliculas, requestComentarios])
-                .then(([usuarios, peliculas, comentarios]) => {
+                let urlComentarios = 'https://backend-movie-8ay7.onrender.com/comentarios';
 
-                    const request = window.indexedDB.open('myDatabasePerfil', 1);
-                    const requestCom = window.indexedDB.open('myDatabaseComentario', 1);
-                    const requestPel = window.indexedDB.open('myDatabasePelicula', 1);
-
-                    request.onerror = function (event) {
-                        console.log('Error al abrir la base de datos', event);
-                    };
-
-                    requestCom.onerror = function (event) {
-                        console.log('Error al abrir la base de datos', event);
-                    };
-
-                    requestPel.onerror = function (event) {
-                        console.log('Error al abrir la base de datos', event);
-                    };
-
-                    request.onupgradeneeded = function (event) {
-                        const db = event.target.result;
-
-                        // Código para agregar usuarios a la base de datos de IndexedDB
-
-                        // Crear object store para usuarios
-                        const usuariosObjectStore = db.createObjectStore('usuarios', { keyPath: '_id' });
-                        usuariosObjectStore.transaction.oncomplete = function (event) {
-                            const usuariosObjectStore = db.transaction('usuarios', 'readwrite').objectStore('usuarios');
-                            usuarios.forEach(usuario => {
-                                usuariosObjectStore.add(usuario);
-                            });
-                        };
-                    };
-
-                    requestCom.onupgradeneeded = function (event) {
-                        const db = event.target.result;
-
-                        // Crear object store para comentarios
-                        const comentariosObjectStore = db.createObjectStore('comentarios', { keyPath: '_id' });
-                        comentariosObjectStore.transaction.oncomplete = function (event) {
-                            const comentariosObjectStore = db.transaction('comentarios', 'readwrite').objectStore('comentarios');
-                            comentarios.forEach(comentario => {
-                                if (comentario._id) { // Validar que _id esté presente y sea válido
-                                    comentariosObjectStore.add(comentario);
-                                }
-                            });
-                        };
-                    };
-
-                    requestPel.onupgradeneeded = function (event) {
-                        const db = event.target.result;
-
-                        // Crear object store para películas
-                        const peliculasObjectStore = db.createObjectStore('peliculas', { keyPath: '_id' });
-                        peliculasObjectStore.transaction.oncomplete = function (event) {
-                            const peliculasObjectStore = db.transaction('peliculas', 'readwrite').objectStore('peliculas');
-                            peliculas.forEach(pelicula => {
-                                peliculasObjectStore.add(pelicula);
-                            });
-                        };
-                    };
+            fetch(urlComentarios)
+                .then((response) => {
+                    response.json()
+                        .then((result) => {
+                            setData(result);
+                            const request = window.indexedDB.open('myDatabaseComentario', 1);
+    
+                            request.onerror = function (event) {
+                                console.log('Error al abrir la base de datos', event);
+                            };
+    
+                            request.onupgradeneeded = function (event) {
+                                const db = event.target.result;
+                                const objectStore = db.createObjectStore('comentarios', { keyPath: '_id' });
+                                objectStore.transaction.oncomplete = function (event) {
+                                    const peliculasObjectStore = db.transaction('comentarios', 'readwrite').objectStore('comentarios');
+                                    result.forEach(function (usuario) {
+                                        peliculasObjectStore.add(usuario);
+                                    });
+                                };
+                            };
+                            
+                        });
                 })
                 .catch(err => {
-                    alert("Error a crear bases offline");
+                    setMode('offline');
                 });
+    }, []);
+
+    /*useEffect(() => {
+        let urlUsuarios = 'https://backend-movie-8ay7.onrender.com/user';
+        let urlPelicula = 'https://backend-movie-8ay7.onrender.com/peli';
+        let urlComentarios = 'https://backend-movie-8ay7.onrender.com/comentarios';
+
+
+        const fetchData = () => {
+            if (navigator.onLine) {
+                const requestUsuarios = fetch(urlUsuarios).then(response => response.json());
+                const requestPeliculas = fetch(urlPelicula).then(response => response.json());
+                const requestComentarios = fetch(urlComentarios).then(response => response.json());
+
+                Promise.all([requestUsuarios, requestPeliculas, requestComentarios])
+                    .then(([usuarios, peliculas, comentarios]) => {
+
+                        const request = window.indexedDB.open('myDatabasePerfil', 1);
+                        const requestCom = window.indexedDB.open('myDatabaseComentario', 1);
+                        const requestPel = window.indexedDB.open('myDatabasePelicula', 1);
+
+                        request.onerror = function (event) {
+                            console.log('Error al abrir la base de datos', event);
+                        };
+
+                        requestCom.onerror = function (event) {
+                            console.log('Error al abrir la base de datos', event);
+                        };
+
+                        requestPel.onerror = function (event) {
+                            console.log('Error al abrir la base de datos', event);
+                        };
+
+                        request.onupgradeneeded = function (event) {
+                            const db = event.target.result;
+
+                            // Código para agregar usuarios a la base de datos de IndexedDB
+
+                            // Crear object store para usuarios
+                            const usuariosObjectStore = db.createObjectStore('usuarios', { keyPath: '_id' });
+                            usuariosObjectStore.transaction.oncomplete = function (event) {
+                                const usuariosObjectStore = db.transaction('usuarios', 'readwrite').objectStore('usuarios');
+                                usuarios.forEach(usuario => {
+                                    usuariosObjectStore.add(usuario);
+                                });
+                            };
+                        };
+
+                        requestCom.onupgradeneeded = function (event) {
+                            const db = event.target.result;
+
+                            // Crear object store para comentarios
+                            const comentariosObjectStore = db.createObjectStore('comentarios', { keyPath: '_id' });
+                            comentariosObjectStore.transaction.oncomplete = function (event) {
+                                const comentariosObjectStore = db.transaction('comentarios', 'readwrite').objectStore('comentarios');
+                                comentarios.forEach(comentario => {
+                                    if (comentario._id) { // Validar que _id esté presente y sea válido
+                                        comentariosObjectStore.add(comentario);
+                                    }
+                                });
+                            };
+                        };
+
+                        requestPel.onupgradeneeded = function (event) {
+                            const db = event.target.result;
+
+                            // Crear object store para películas
+                            const peliculasObjectStore = db.createObjectStore('peliculas', { keyPath: '_id' });
+                            peliculasObjectStore.transaction.oncomplete = function (event) {
+                                const peliculasObjectStore = db.transaction('peliculas', 'readwrite').objectStore('peliculas');
+                                peliculas.forEach(pelicula => {
+                                    peliculasObjectStore.add(pelicula);
+                                });
+                            };
+                        };
+
+                        requestPel.onsuccess = function (event) {
+                            const db = event.target.result;
+                            const transaction = db.transaction(['peliculas'], 'readonly');
+                            const objectStore = transaction.objectStore('peliculas');
+                            const getRequest = objectStore.getAll();
+        
+                            getRequest.onsuccess = function (event) {
+                                setData(event.target.result);
+                            };
+                        };
+
+                        request.onsuccess = function (event) {
+                            const db = event.target.result;
+                            const transaction = db.transaction(['usuarios'], 'readonly');
+                            const objectStore = transaction.objectStore('usuarios');
+                            const getRequest = objectStore.getAll();
+        
+                            getRequest.onsuccess = function (event) {
+                                setData(event.target.result);
+                            };
+                        };
+                    })
+                    .catch(err => {
+                        alert("Error a crear bases offline");
+                    });
+            } else {
+                const request = window.indexedDB.open('myDatabasePelicula', 1);
+
+                request.onsuccess = function (event) {
+                    const db = event.target.result;
+                    const transaction = db.transaction(['peliculas'], 'readonly');
+                    const objectStore = transaction.objectStore('peliculas');
+                    const getRequest = objectStore.getAll();
+
+                    getRequest.onsuccess = function (event) {
+                        setData(event.target.result);
+                    };
+                };
+
+                const requestU = window.indexedDB.open('myDatabasePerfil', 1);
+
+                requestU.onsuccess = function (event) {
+                    const db = event.target.result;
+                    const transaction = db.transaction(['usuarios'], 'readonly');
+                    const objectStore = transaction.objectStore('usuarios');
+                    const getRequest = objectStore.getAll();
+
+                    getRequest.onsuccess = function (event) {
+                        setData(event.target.result);
+                    };
+                };
+            }
         };
 
         fetchData(); // Llamar a la función fetchData al cargar el componente
@@ -194,6 +302,7 @@ export default function Home() {
             window.removeEventListener('online', handleOnline); // Limpiar el event listener al desmontar el componente
         };
     }, []);
+    */
 
     return (
         <div>
