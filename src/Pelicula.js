@@ -16,7 +16,7 @@ export default function Pelicula() {
     const [mode, setMode] = useState('online');
     const [show, setShow] = useState(true);
     const { text, startListening, stopListening, isListening, hasRecognitionSupport, } = useSpeechRecognition();
-    let url = `http://localhost:3001/peli/${id}`;
+    let url = `https://backend-movie-8ay7.onrender.com/peli/${id}`;
 
     const [formData, setFormData] = useState({
         comentario: '',
@@ -73,7 +73,7 @@ export default function Pelicula() {
             return;
         }
 
-        let url = "http://localhost:3001/login";
+        let url = "https://backend-movie-8ay7.onrender.com/login";
 
         if (navigator.onLine) {
             // En línea: Realizar el registro del usuario a través de la API
@@ -179,7 +179,7 @@ export default function Pelicula() {
 
                         if (navigator.onLine) {
                             // En línea: Realizar el registro del usuario a través de la API
-                            fetch('http://localhost:3001/registro', {
+                            fetch('https://backend-movie-8ay7.onrender.com/registro', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
@@ -232,7 +232,7 @@ export default function Pelicula() {
                                                 console.log('Usuarios almacenados:', users);
                                                 // Sincronizar los usuarios almacenados localmente con el servidor
                                                 users.forEach(usuario => {
-                                                    fetch('http://localhost:3001/registro', {
+                                                    fetch('https://backend-movie-8ay7.onrender.com/registro', {
                                                         method: 'POST',
                                                         headers: {
                                                             'Content-Type': 'application/json'
@@ -434,7 +434,7 @@ export default function Pelicula() {
 
 
     useEffect(() => {
-        let url = "http://localhost:3001/user";
+        let url = "https://backend-movie-8ay7.onrender.com/user";
 
         fetch(url)
             .then((response) => {
@@ -484,7 +484,7 @@ export default function Pelicula() {
     const handleEnviarComentario = (comentario, idUsuario) => {
         if (navigator.onLine) {
             // En línea: Realizar el registro del comentario a través de la API
-            fetch('http://localhost:3001/comentarioAdd', {
+            fetch('https://backend-movie-8ay7.onrender.com/comentarioAdd', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -542,7 +542,7 @@ export default function Pelicula() {
                                 console.log('Comentarios almacenados:', comentarios);
                                 // Sincronizar los comentarios almacenados localmente con el servidor
                                 comentarios.forEach(comentario => {
-                                    fetch('http://localhost:3001/comentarioAdd', {
+                                    fetch('https://backend-movie-8ay7.onrender.com/comentarioAdd', {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json'
@@ -593,7 +593,7 @@ export default function Pelicula() {
     const handleEnviarCalificacion = (califiacion, idUsuario) => {
         if (navigator.onLine) {
             // En línea: Realizar el registro del comentario a través de la API
-            fetch('http://localhost:3001/actualizarCalificacion', {
+            fetch('https://backend-movie-8ay7.onrender.com/actualizarCalificacion', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -655,7 +655,7 @@ export default function Pelicula() {
                                 console.log('Calificacion almacenada:', comentarios);
                                 // Sincronizar los comentarios almacenados localmente con el servidor
                                 comentarios.forEach(comentario => {
-                                    fetch('http://localhost:3001/comentarioAdd', {
+                                    fetch('https://backend-movie-8ay7.onrender.com/comentarioAdd', {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json'
