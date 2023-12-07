@@ -19,7 +19,7 @@ export default function About() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3001/peli'); // Replace with your API endpoint
+                const response = await fetch('https://backend-movie-8ay7.onrender.com/peli'); // Replace with your API endpoint
                 const result = await response.json();
                 setData(result);
                 setOriginalData(result);
