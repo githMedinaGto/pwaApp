@@ -31,9 +31,9 @@ export default function Perfil() {
     }
 
     useEffect(() => {
-        let urlUsuarios = 'http://localhost:3001/user';
-        let urlPelicula = 'http://localhost:3001/peli';
-        let urlComentarios = 'http://localhost:3001/comentarios';
+        let urlUsuarios = 'https://backend-movie-8ay7.onrender.com/user';
+        let urlPelicula = 'https://backend-movie-8ay7.onrender.com/peli';
+        let urlComentarios = 'https://backend-movie-8ay7.onrender.com/comentarios';
 
         const fetchData = () => {
             const requestUsuarios = fetch(urlUsuarios).then(response => response.json());
@@ -164,7 +164,7 @@ export default function Perfil() {
 
                         if (navigator.onLine) {
                             // En línea: Realizar el registro del usuario a través de la API
-                            fetch('http://localhost:3001/registro', {
+                            fetch('https://backend-movie-8ay7.onrender.com/registro', {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json'
@@ -217,7 +217,7 @@ export default function Perfil() {
                                                 console.log('Usuarios almacenados:', users);
                                                 // Sincronizar los usuarios almacenados localmente con el servidor
                                                 users.forEach(usuario => {
-                                                    fetch('http://localhost:3001/registro', {
+                                                    fetch('https://backend-movie-8ay7.onrender.com/registro', {
                                                         method: 'POST',
                                                         headers: {
                                                             'Content-Type': 'application/json'
@@ -283,7 +283,7 @@ export default function Perfil() {
     const handleEnviardatos = () => {
         if (navigator.onLine) {
             // Lógica para iniciar sesión utilizando fetch
-            fetch('http://localhost:3001/login', {
+            fetch('https://backend-movie-8ay7.onrender.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -342,7 +342,7 @@ export default function Perfil() {
     const cargarComentariosUsuario = (idUsuario) => {
         if (navigator.onLine) {
             // Lógica para cargar comentarios del usuario utilizando fetch
-            fetch(`http://localhost:3001/comentario/${idUsuario}`)
+            fetch(`https://backend-movie-8ay7.onrender.com/comentario/${idUsuario}`)
                 .then(response => response.json())
                 .then(data => {
                     // Mostrar comentarios en la interfaz de usuario
@@ -424,7 +424,7 @@ export default function Perfil() {
     const cargarPeliculasFavoritas = (idUsuario, peliculasFavoritas) => {
         if (navigator.onLine) {
             // Lógica para cargar películas favoritas del usuario utilizando fetch
-            fetch(`http://localhost:3001/peliculasFavoritas/${idUsuario}`)
+            fetch(`https://backend-movie-8ay7.onrender.com/peliculasFavoritas/${idUsuario}`)
                 .then(response => response.json())
                 .then(data => {
                     const peliculasOrdenadas = data.sort((a, b) => b.calificacion - a.calificacion);
