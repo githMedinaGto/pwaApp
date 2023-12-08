@@ -6,10 +6,6 @@ this.addEventListener("install", (event) =>{
                 '/',
                 '/index.html',
                 '/static/js/bundle.js',
-                '/static/js/main.chunk.js',
-                '/logo192.png',
-                '/favicon.ico',                
-                '/manifest.json',
             ])
         })
     )
