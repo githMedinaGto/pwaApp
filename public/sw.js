@@ -5,9 +5,7 @@ this.addEventListener("install", (event) =>{
             cache.addAll([
                 '/',
                 '/index.html',
-                '/peli',
-                '/user',
-                '/comentarios'
+                'About.js'
             ])
         })
     )
