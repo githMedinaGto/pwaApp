@@ -5,7 +5,7 @@ this.addEventListener("install", (event) =>{
             cache.addAll([
                 '/',
                 '/index.html',
-                'About.js'
+                'About'
             ])
         })
     )
