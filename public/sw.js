@@ -4,7 +4,20 @@ this.addEventListener("install", (event) =>{
         caches.open(cacheData).then((cache) => {
             cache.addAll([
                 '/',
-                '/index.html'
+                '/index.html',
+                '/users',
+                '/home',
+                '/buscar',
+                '/pelicula',
+                '/pelicula/:id',
+                '/peli',
+                '/peli/:id',
+                '/perfil',
+                '/static/js/bundle.js',
+                '/static/js/main.chunk.js',
+                '/logo192.png',
+                '/favicon.ico',                
+                '/manifest.json',
             ])
         })
     )
