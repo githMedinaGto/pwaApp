@@ -2,36 +2,36 @@ let cacheData = "appV1";
 this.addEventListener("install", (event) =>{
     event.waitUntil(
         caches.open(cacheData).then((cache) => {
-            return cache.addAll([
-                '/'
-            ]).catch(error => {
-                console.error('Error al almacenar en caché algunos recursos:', error);
-            });
+            cache.addAll([
+                '/',
+                '/index.html'
+            ])
         })
-    );
-});
+    )
+})
+
 
 this.addEventListener("fetch", (event) =>{
-    if(!navigator.onLine) {
+
+    if(!navigator.onLine)
+    {
+        if(event.request.url==="https://pwa-cine-mania.netlify.app/static/js/bundle.js"){
+            event.waitUntil(
+                this.registration.showNotification("Internet",{
+                    body:"Internet not working",
+                })
+            )
+        }
+        
         event.respondWith(
-            caches.match(event.request).then((resp) => {
-                if(resp) {
-                    return resp;
-                }
-                let requestUrl = event.request.clone();
-                return fetch(requestUrl).then(response => {
-                    if(!response || response.status !== 200 || response.type !== 'basic') {
-                        return response;
-                    }
-                    let responseToCache = response.clone();
-                    caches.open(cacheData).then(cache => {
-                        cache.put(event.request, responseToCache);
-                    });
-                    return response;
-                });
-            }).catch(() => {
-                return new Response("Internet no funciona", { status: 404, statusText: "Internet no funciona" });
-            })
-        );
+        caches.match(event.request).then((resp) =>{
+            if(resp){
+                return resp;
+            }
+            let requestUrl = event.request.clone();
+            console.log(requestUrl);
+            fetch(requestUrl)
+        })
+        )
     }
-});
+} )
