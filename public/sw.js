@@ -5,7 +5,13 @@ this.addEventListener("install", (event) =>{
             cache.addAll([
                 '/',
                 '/index.html',
-                '/manifest.json'
+                '/manifest.json',
+                '/robots.txt',
+                '/logo512.png',
+                '/logo192.png',
+                '/firebase-messaging-sw.js',
+                '/favicon.ico',
+                'asset-manifest.json'
             ])
         })
     )
