@@ -4,20 +4,13 @@ this.addEventListener("install", (event) =>{
         caches.open(cacheData).then((cache) => {
             cache.addAll([
                 '/',
-                'index.html',
-                '/users',
-                '/home',
-                '/buscar',
-                '/pelicula',
-                '/pelicula/:id',
+                '/static/js/main.27b1a1a7.js',
                 '/peli',
-                '/peli/:id',
-                '/perfil',
-                '/static/js/bundle.js',
-                '/static/js/main.chunk.js',
-                '/logo192.png',
-                '/favicon.ico',                
+                '/user',
+                '/comentarios',
                 '/manifest.json',
+                '/favicon.ico',
+                '/logo192.png'
             ])
         })
     )
