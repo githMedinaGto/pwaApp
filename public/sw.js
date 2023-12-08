@@ -4,7 +4,8 @@ this.addEventListener("install", (event) =>{
         caches.open(cacheData).then((cache) => {
             cache.addAll([
                 '/',
-                '/index.html'
+                '/index.html',
+                '/manifest.json'
             ])
         })
     )
