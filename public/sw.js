@@ -3,14 +3,7 @@ this.addEventListener("install", (event) =>{
     event.waitUntil(
         caches.open(cacheData).then((cache) => {
             return cache.addAll([
-                '/',
-                '/static/js/main.27b1a1a7.js',
-                '/peli',
-                '/user',
-                '/comentarios',
-                '/manifest.json',
-                '/favicon.ico',
-                '/logo192.png'
+                '/'
             ]).catch(error => {
                 console.error('Error al almacenar en caché algunos recursos:', error);
             });
