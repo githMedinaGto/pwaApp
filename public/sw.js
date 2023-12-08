@@ -5,9 +5,9 @@ this.addEventListener("install", (event) =>{
             cache.addAll([
                 '/',
                 '/index.html',
-                '/users',
-                '/home',
-                '/buscar'
+                '/peli',
+                '/user',
+                '/comentarios'
             ])
         })
     )
